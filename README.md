@@ -84,6 +84,7 @@ flowchart LR
 | HSTS와 롤백 | 옛 서버는 HTTPS가 안 됩니다. HSTS를 길게 걸면 DNS를 되돌려도 브라우저가 접속하지 못합니다. 그래서 180일로 두고 서브도메인과 preload는 제외했으며, 롤백 시에는 **Worker 이전 버전 복구를 우선**하도록 계획했습니다. |
 | Pages vs Workers | 처음에는 Cloudflare Pages로 준비했다가, Cloudflare 공식 이전 가이드(Pages → Workers Static Assets)를 따라 `wrangler.jsonc` 기반 Workers로 전환했습니다. 정적 자산만 올리는 스크립트 없는 Worker 구성입니다. |
 | 캐시 때문에 "배포했는데 안 바뀜" | 엣지와 브라우저 캐시로 1~5분간 옛 파일이 보이는 현상을 실제로 겪었습니다. 그래서 HTML은 `max-age=0, must-revalidate`, JS·CSS는 5분으로 두고, 배포 후에는 운영 주소의 ETag와 본문을 확인하는 절차를 만들었습니다. |
+| 검색 결과의 옛 주소가 404 | 구글에 남은 옛 그누보드 주소(`/gnuboard4/sub0101.php` 등)로 들어오면 404가 났습니다. 옛 메뉴 구조를 조사해 [`_redirects`](twoasoft/_redirects)로 **페이지별 301 매핑**을 만들었습니다(인사말→`#greeting`, 오시는길→`#location` 등). 대응하는 새 콘텐츠가 없는 옛 주소(게시글·관리자 등)는 방문자가 바로 사이트에 들어오도록 홈으로 보냈습니다. 구글이 이를 soft 404로 보고 색인에서 빼더라도 감수하는 선택입니다. 옛 사이트와 무관한 없는 주소는 그대로 404입니다. |
 | 로컬 도구가 옛 IP로 접속 | 전환 직후 이 PC의 `curl`만 옛 서버 IP로 접속했습니다. 공용 DNS(8.8.8.8, 1.1.1.1), Cloudflare 권한 서버, .NET, 브라우저는 모두 정상이었으므로, 방문자 영향이 없는 로컬 문제로 분리해 기록했습니다. |
 
 ---
@@ -109,6 +110,7 @@ flowchart LR
 │   ├── js/main.js
 │   ├── assets/img/        # SVG 아이콘, 대표 사진
 │   ├── _headers           # 보안 헤더 · 캐시 정책
+│   ├── _redirects         # 옛 사이트 주소 → 새 구획 301
 │   └── robots.txt
 ├── wrangler.jsonc         # Cloudflare Workers 설정 (Custom Domain 2개)
 └── docs/
