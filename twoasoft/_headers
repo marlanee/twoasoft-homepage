@@ -1,0 +1,36 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=15552000
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-/x7W7R75k8Roq0WaVRQX9blP4OufE5xbAdzklGxsgpw='; script-src-attr 'none'; style-src 'self' https://cdn.jsdelivr.net; style-src-attr 'none'; font-src https://cdn.jsdelivr.net; img-src 'self'; frame-src https://www.google.com; connect-src https://cdn.jsdelivr.net; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+
+# Unversioned assets: 30 days, with revalidation once stale.
+/assets/*
+  Cache-Control: public, max-age=2592000, must-revalidate
+
+/css/*
+  Cache-Control: public, max-age=300, must-revalidate
+
+/js/*
+  Cache-Control: public, max-age=300, must-revalidate
+
+# HTML file paths and extensionless Pages routes.
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/index
+  Cache-Control: public, max-age=0, must-revalidate
+
+/404
+  Cache-Control: public, max-age=0, must-revalidate
+
+/robots.txt
+  Cache-Control: public, max-age=300, must-revalidate
+
+https://:version.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex

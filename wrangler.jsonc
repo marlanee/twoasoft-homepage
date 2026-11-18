@@ -1,0 +1,19 @@
+{
+  "name": "twoasoft",
+  "compatibility_date": "2026-11-13",
+  "workers_dev": true,
+  "assets": {
+    "directory": "twoasoft",
+    "not_found_handling": "404-page"
+  },
+  "routes": [
+    {
+      "pattern": "twoasoft.co.kr",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.twoasoft.co.kr",
+      "custom_domain": true
+    }
+  ]
+}
